@@ -3,6 +3,7 @@ version: '3.7'
 services:
   mysql:
     image: mysql:5.7
+    container_name: docker-mysql
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -10,6 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
 
   phpmyadmin:
+    container_name: docker-phpmyadmin
     depends_on:
       - mysql
     image: phpmyadmin/phpmyadmin
@@ -20,6 +22,7 @@ services:
       - "8080:80"
 
   php-apache:
+    container_name: docker-php-apache
     build: ./php
     volumes:
       - ./htdocs:/var/www/html
