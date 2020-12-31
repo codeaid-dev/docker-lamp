@@ -1,4 +1,3 @@
 htdocs
-#!PHP_practice
-#!PHP_OREILLY
+.DS_Store
 docker-lamp.code-workspace
