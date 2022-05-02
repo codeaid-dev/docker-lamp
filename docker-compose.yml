@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
+  db:
+    image: mariadb:10.7
+    container_name: mariadb
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -13,10 +13,10 @@ services:
   phpmyadmin:
     container_name: phpmyadmin
     depends_on:
-      - mysql
+      - db
     image: phpmyadmin/phpmyadmin
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: db
     restart: always
     ports:
       - "8080:80"
@@ -30,7 +30,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - mysql
+      - db
 
 volumes:
     db_data: {}
