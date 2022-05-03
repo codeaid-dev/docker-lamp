@@ -17,6 +17,8 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
+      MEMORY_LIMIT: 128M
+      UPLOAD_LIMIT: 64M
     restart: always
     ports:
       - "8080:80"
