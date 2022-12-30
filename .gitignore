@@ -1,3 +1,7 @@
-htdocs
+/htdocs/*
 .DS_Store
 docker-lamp.code-workspace
+!/htdocs/hello.php
+!/htdocs/sample.php
+!/htdocs/css/
+!/htdocs/db/
