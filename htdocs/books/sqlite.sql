@@ -1,0 +1,8 @@
+/* booksテーブル作成 */
+CREATE TABLE books (
+  isbn VARCHAR(17) NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price INTEGER NOT NULL,
+  page INTEGER NOT NULL,
+  date TEXT NOT NULL
+);

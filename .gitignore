@@ -5,3 +5,4 @@ docker-lamp.code-workspace
 !/htdocs/sample.php
 !/htdocs/css/
 !/htdocs/db/
+!/htdocs/books/
