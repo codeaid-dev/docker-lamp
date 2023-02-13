@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       try {
         $db = new PDO($dsn, $user, $password);
         //$db = new PDO($dsn); //SQLiteの場合
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // prepareを使用する際のSQLインジェクション対策(必須)
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
         $stmt = $db->prepare("UPDATE books SET name=:name, price=:price, page=:page, date=:date WHERE isbn='$isbn'");
   //      $stmt->bindParam(':isbn', $isbn, PDO::PARAM_STR);
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);

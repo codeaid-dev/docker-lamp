@@ -3,6 +3,8 @@
 docker-lamp.code-workspace
 !/htdocs/hello.php
 !/htdocs/sample.php
+!/htdocs/sample2.php
+!/htdocs/sample3.php
 !/htdocs/css/
 !/htdocs/db/
 !/htdocs/books/

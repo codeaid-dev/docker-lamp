@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
       $db = new PDO($dsn, $user, $password);
       //$db = new PDO($dsn); //SQLiteの場合
-      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // prepareを使用する際のSQLインジェクション対策(必須)
+      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
       $db->query("CREATE TABLE IF NOT EXISTS books (
         isbn VARCHAR(17) NOT NULL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
