@@ -6,10 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (in_array('delete',array_keys($_POST))) {
     $delete = htmlspecialchars($_POST['delete']);
   }
-  if (!isset($keyword) && !isset($delete)) {
-    header('Location: read.php');
-    exit();
-  }
 
   //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
   $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合

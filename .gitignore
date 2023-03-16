@@ -8,3 +8,4 @@ docker-lamp.code-workspace
 !/htdocs/css/
 !/htdocs/db/
 !/htdocs/books/
+!/htdocs/quiz/
