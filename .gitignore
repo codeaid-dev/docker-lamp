@@ -9,3 +9,4 @@ docker-lamp.code-workspace
 !/htdocs/db/
 !/htdocs/books/
 !/htdocs/quiz/
+!/htdocs/todo/

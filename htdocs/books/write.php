@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     print '</li></ul>';
     //exit();
   } else {
-    //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
-    $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
+    //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
+    $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8mb4'; // Dockerの場合
     //$dsn = 'sqlite:./bookstrage.db'; // SQLiteの場合
     $user = 'root';
     $password = 'password';

@@ -1,6 +1,6 @@
 <?php
-  //$dsn = 'mysql:host=localhost;dbname=quiz;charset=utf8'; // XAMPP/MAMP/VMの場合
-  $dsn = 'mysql:host=mysql;dbname=quiz;charset=utf8'; // Dockerの場合
+  //$dsn = 'mysql:host=localhost;dbname=quiz;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
+  $dsn = 'mysql:host=mysql;dbname=quiz;charset=utf8mb4'; // Dockerの場合
   //$dsn = 'sqlite:./quiz.db'; // SQLiteの場合
   $user = 'root';
   $password = 'password';
@@ -14,7 +14,7 @@
     ) DEFAULT CHARACTER SET=utf8;");
   } catch (PDOException $e) {
     die ('エラー：'.$e->getMessage());
-  }  
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
