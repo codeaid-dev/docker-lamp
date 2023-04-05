@@ -23,7 +23,7 @@ if (!isset($_SESSION['username'])) {
   <title>ToDoアプリ</title>
 </head>
 <body>
-  <p><?php echo $user ?>のユーザー登録を解除しました。</p>
+  <p><?php echo htmlspecialchars($user); ?>のユーザー登録を解除しました。</p>
   <p><a href="signup.php">ユーザー登録</a></p>
 </body>
 </html>
