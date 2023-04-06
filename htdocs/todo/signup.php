@@ -44,7 +44,6 @@ if(isset($_POST['signup'])){
     <button type="submit" name="signup">登録</button>
   </form>
   <br>
-  <a href="index.php">トップページ</a>
-  <a href="login.php" style="margin-left: 20px;">ログイン</a>
+  <a href="login.php">ログイン</a>
 </body>
 </html>
