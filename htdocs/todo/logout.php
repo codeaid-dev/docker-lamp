@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
+  $username = $_SESSION['username'];
   unset($_SESSION['username']);
   print <<<HTML
   <!DOCTYPE html>
@@ -11,7 +12,7 @@ if (isset($_SESSION['username'])) {
     <title>ToDoアプリ</title>
   </head>
   <body>
-    <p>ログアウトしました。</p>
+    <p>$username - ログアウトしました。</p>
     <p><a href="login.php">ログイン</a>
     <a href="signup.php" style="margin-left: 20px;">ユーザー登録</a></p>
   </body>
