@@ -41,7 +41,7 @@ if(isset($_POST['signup'])){
   <form method="post">
     <label>ユーザー名：<input type="text" name="username" value="<?= $username ?? '' ?>"></label><br>
     <label>パスワード：<input type="password" name="password" value="<?= $password ?? '' ?>"></label><br>
-    <button type="submit" name="signup">送信</button>
+    <button type="submit" name="signup">登録</button>
   </form>
   <br>
   <a href="index.php">トップページ</a>
