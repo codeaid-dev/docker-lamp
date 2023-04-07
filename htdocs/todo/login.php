@@ -36,8 +36,8 @@ if(isset($_POST['login'])){
     <p><? echo $error; ?></p>
   <?php endif; ?> 
   <form method="post">
-    <label>ユーザー名：<input type="text" name="username"></label><br>
-    <label>パスワード：<input type="password" name="password"></label><br>
+    <label>ユーザー名：<input type="text" name="username" required></label><br>
+    <label>パスワード：<input type="password" name="password" required></label><br>
     <button type="submit" name="login">送信</button>
   </form>
   <br>
