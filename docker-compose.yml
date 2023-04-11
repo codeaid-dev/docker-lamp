@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  php-apache:
+    build: ./php
+    container_name: php-apache
+    volumes:
+      - ./htdocs:/var/www/html
+    restart: always
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:latest
     container_name: mysql
@@ -25,17 +36,6 @@ services:
     restart: always
     ports:
       - "8080:80"
-
-  php-apache:
-    build: ./php
-    container_name: php-apache
-    volumes:
-      - ./htdocs:/var/www/html
-    restart: always
-    ports:
-      - "8000:80"
-    depends_on:
-      - mysql
 
 volumes:
     db_data: {}

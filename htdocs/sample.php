@@ -17,8 +17,8 @@
     $password = 'password';
 
     try {
-      //$db = new PDO($dsn, $user, $password);
-      $db = new PDO("sqlite:./db/sample.db");
+      $db = new PDO($dsn, $user, $password);
+      //$db = new PDO("sqlite:./db/sample.db");
       print '<p>接続成功</p>';
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -20,8 +20,8 @@
     $data = [[1,'Yamada',85],[2,'Tanaka',79],[3,'Suzuki',63]];
 
     try {
-      $db = new PDO($dsn, $user, $password, $options); // MySQL
-//      $db = new PDO("sqlite:./db/sample.db", options:$options); // SQLite
+      //$db = new PDO($dsn, $user, $password, $options); // MySQL
+      $db = new PDO("sqlite:./db/sample.db", options:$options); // SQLite
       print '<p>接続成功</p>';
 
       $db->exec("CREATE TABLE IF NOT EXISTS users(
