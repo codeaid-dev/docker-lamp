@@ -33,10 +33,8 @@ try {
         }
       }
     } else if (isset($_POST['edit'])) { //編集
-      if (empty($_POST['question'])) {
-        print "<p>問題が空白です。</p>";
-      } else if (empty($_POST['answer'])) {
-          print "<p>答えが空白です。</p>";
+      if (empty($_POST['question']) || empty($_POST['answer'])) {
+        print "<p>問題か答えが空白です。</p>";
       } else {
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
         $stmt = $db->prepare("UPDATE questions SET question=:question, answer=:answer WHERE id='$id'");
