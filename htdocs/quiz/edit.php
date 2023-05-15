@@ -33,12 +33,18 @@ try {
         }
       }
     } else if (isset($_POST['edit'])) { //編集
-      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-      $stmt = $db->prepare("UPDATE questions SET question=:question, answer=:answer WHERE id='$id'");
-      $stmt->bindParam(':question', $question, PDO::PARAM_STR);
-      $stmt->bindParam(':answer', $answer, PDO::PARAM_STR);
-      $stmt->execute();
-      print "<p>番号{$id}の問題を修正しました。</p>";
+      if (empty($_POST['question'])) {
+        print "<p>問題が空白です。</p>";
+      } else if (empty($_POST['answer'])) {
+          print "<p>答えが空白です。</p>";
+      } else {
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
+        $stmt = $db->prepare("UPDATE questions SET question=:question, answer=:answer WHERE id='$id'");
+        $stmt->bindParam(':question', $question, PDO::PARAM_STR);
+        $stmt->bindParam(':answer', $answer, PDO::PARAM_STR);
+        $stmt->execute();
+        print "<p>番号{$id}の問題を修正しました。</p>";
+      }
     } else if (isset($_POST['delete'])) { //削除
       $db->query("DELETE FROM questions WHERE id={$id}");
       print "<p>番号{$id}の問題を削除しました。</p>";
