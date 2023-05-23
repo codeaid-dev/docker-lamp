@@ -1,5 +1,5 @@
 <?php
-session_start(['gc_maxlifetime' => 600, 'gc_probability' => 600]);
+session_start();
 require_once 'config.php';
 
 if(!isset($_SESSION['username'])){
