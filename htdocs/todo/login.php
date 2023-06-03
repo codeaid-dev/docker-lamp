@@ -8,18 +8,22 @@ if(isset($_SESSION['username'])){
 }
 
 if(isset($_POST['login'])){
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $sql = "SELECT * FROM users WHERE username=:username";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute(['username' => $username]);
-  $user = $stmt->fetch();
-  if($user && password_verify($password, $user['password'])){
-    $_SESSION['username'] = $username;
-    header('Location: index.php');
-    exit;
-  } else {
-    $error = 'ログイン失敗';
+  try {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM users WHERE username=:username";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['username' => $username]);
+    $user = $stmt->fetch();
+    if($user && password_verify($password, $user['password'])){
+      $_SESSION['username'] = $username;
+      header('Location: index.php');
+      exit;
+    } else {
+      $error = 'ログイン失敗';
+    }
+  } catch (PDOException $e) {
+    die ('エラー：'.$e->getMessage());
   }
 }
 ?>

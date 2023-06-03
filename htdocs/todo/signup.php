@@ -8,21 +8,27 @@ if(isset($_SESSION['username'])){
 }
 
 if(isset($_POST['signup'])){
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $sql = "SELECT * FROM users WHERE username=:username";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute(['username' => $username]);
-  $user = $stmt->fetch();
-  if($user){
-    $error = 'このユーザー名は登録できません。';
-  } else {
-    $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+  try {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM users WHERE username=:username";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['username' => $username, 'password' => password_hash($password, PASSWORD_DEFAULT)]);
-    $_SESSION['username'] = $username;
-    header('Location: index.php');
-    exit;
+    $stmt->execute(['username' => $username]);
+    $user = $stmt->fetch();
+    if($user){
+      $error = 'このユーザー名は登録できません。';
+    } else if (preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!-\/:-@[-`{-~])[!-~]{8,32}$/', $password) !== 1) {
+        $error = 'パスワードは8~32文字で大小文字英字数字記号をそれぞれ1文字以上含める必要があります。';
+    } else {
+      $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute(['username' => $username, 'password' => password_hash($password, PASSWORD_DEFAULT)]);
+      $_SESSION['username'] = $username;
+      header('Location: index.php');
+      exit;
+    }
+  } catch (PDOException $e) {
+    die ('エラー：'.$e->getMessage());
   }
 }
 ?>
