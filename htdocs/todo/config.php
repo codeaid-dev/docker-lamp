@@ -8,7 +8,7 @@ $dbpass = 'password';
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 try {
   $pdo = new PDO($dsn, $dbuser, $dbpass); //MySQL
-  //$pdo = 'sqlite:./todo.db'; //SQLite
+  //$pdo = new PDO('sqlite:./todo.db'); //SQLite
   $pdo->query("CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(256) NOT NULL PRIMARY KEY,
     password VARCHAR(256) NOT NULL
