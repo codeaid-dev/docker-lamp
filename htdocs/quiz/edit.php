@@ -10,6 +10,8 @@ $password = 'password';
 try {
   $db = new PDO($dsn, $user, $password);
   //$db = new PDO($dsn); //SQLiteの場合
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
+  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
   $sql = $db->query("SELECT * FROM questions");
   $list = array();
   foreach ($sql as $row) {

@@ -7,6 +7,8 @@
   try {
     $db = new PDO($dsn, $user, $password);
     //$db = new PDO($dsn); //SQLiteの場合
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
     $db->query("CREATE TABLE IF NOT EXISTS questions (
       id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
       question VARCHAR(255) NOT NULL,

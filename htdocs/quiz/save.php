@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   try {
     $db = new PDO($dsn, $user, $password);
     //$db = new PDO($dsn); //SQLiteの場合
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
     $stmt = $db->prepare("INSERT INTO questions (question, answer) VALUES (:question, :answer)");
     $stmt->bindParam(':question', $question, PDO::PARAM_STR);

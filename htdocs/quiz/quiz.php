@@ -9,6 +9,7 @@ $password = 'password';
 try {
   $db = new PDO($dsn, $user, $password);
   //$db = new PDO($dsn); //SQLiteの場合
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
   $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
   if ($_SERVER['REQUEST_METHOD'] == 'POST') { //解答ボタンによるPOST送信は正解を判定する
     $stmt = $db->prepare("SELECT * FROM questions WHERE id=:id");
