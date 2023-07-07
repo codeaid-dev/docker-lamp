@@ -101,8 +101,8 @@ try {
       <tbody>
         <?php foreach ($list as $q) {
           print '<tr><td>' . $q['id'] . '</td>';
-          print '<td>' . $q['question'] . '</td>';
-          print '<td>' . $q['answer'] . '</td></tr>';
+          print '<td>' . htmlspecialchars($q['question']) . '</td>';
+          print '<td>' . htmlspecialchars($q['answer']) . '</td></tr>';
         } ?>
       </tbody>
     </table>
