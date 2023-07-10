@@ -1,5 +1,5 @@
 <?php
-$pc_makers = array('lenovo' => 'Lenovo',
+$makers = array('lenovo' => 'Lenovo',
 'dell' => 'DELL',
 'hp' => 'HP',
 'apple' => 'Apple',
@@ -15,35 +15,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validate_form()がエラーを返したら、エラーをshow_form()に渡す
   list($errors, $input) = validate_form();
   if ($errors) {
-    show_form($errors);
+    include 'index.php';
   } else {
     // サブミットされたデータが有効なら処理する
-    process_form($input);
-  }
+    //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
+    $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
+    //$dsn = 'sqlite:./bookstore.db'; // SQLiteの場合
+    $user = 'root';
+    $password = 'password';
 
-  //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
-  $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
-  //$dsn = 'sqlite:./bookstore.db'; // SQLiteの場合
-  $user = 'root';
-  $password = 'password';
-
-  try {
-    $db = new PDO($dsn, $user, $password);
-    //$db = new PDO($dsn); //SQLiteの場合
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-    if (isset($delete)) {
-      $stmt = $db->prepare("DELETE FROM books WHERE isbn=:isbn");
-      $stmt->execute([':isbn'=>$delete]);
-    } else {
-      $stmt = $db->prepare("SELECT * FROM books WHERE isbn=:isbn OR name LIKE :name");
-      $stmt->bindParam(':isbn', $keyword, PDO::PARAM_STR);
-      $name = "%".$keyword."%";
-      $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    try {
+      $db = new PDO($dsn, $user, $password);
+      //$db = new PDO($dsn); //SQLiteの場合
+      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
+      $stmt = $db->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments) VALUES (?,?,?,?,?,?,?)");
+      $stmt->bindParam(1, $input['name'], PDO::PARAM_STR);
+      $stmt->bindParam(2, $input['email'], PDO::PARAM_STR);
+      $stmt->bindParam(3, $input['age'], PDO::PARAM_STR);
+      $stmt->bindParam(4, implode("|",$input['program']), PDO::PARAM_STR);
+      $stmt->bindParam(5, $input['pc'], PDO::PARAM_STR);
+      $stmt->bindParam(6, $GLOBALS['makers'][$input['maker']], PDO::PARAM_STR);
+      $stmt->bindParam(7, $input['comments'], PDO::PARAM_STR);
       $stmt->execute();
+    } catch (PDOException $e) {
+      die ('エラー：'.$e->getMessage());
     }
-  } catch (PDOException $e) {
-    die ('エラー：'.$e->getMessage());
   }
+} else {
+  include 'index.php';
 }
 
 function validate_form() {
@@ -60,6 +59,7 @@ function validate_form() {
   $input['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
   if (!$input['email']) {
     $errors[] = '正しいメールアドレスを入力してください。';
+    $input['email'] = $_POST['email']??'';
   }
 
   // 18才以上の年齢が入力されているか確認
@@ -71,28 +71,20 @@ function validate_form() {
 
   // プログラミング言語が選択されているか確認
   if (isset($_POST['program']) && is_array($_POST['program'])) {
-    $input['program'] = implode("|", $_POST['program']);
+    //$input['program'] = implode("|", $_POST['program']);
+    $input['program'] = $_POST['program'];
   } else {
-    $input['program'] = "";
+    $input['program'] = array();
   }
 
   // 学習に使われているパソコンが選択されているか確認
-  if (isset($_POST['program']) && is_array($_POST['program'])) {
-    if ($_POST['pc'] == 'desktop') {
-      $input['pc'] = "デスクトップPC";
-    } else {
-      $input['pc'] = "ノートPC";
-    }
-  } else {
-    $input['pc'] = "";
-  }
+  $input['pc'] = $_POST['pc']??'デスクトップPC';
 
   // パソコンメーカーが選択されているか確認
-  if (!array_key_exists($_POST['pc_maker'], $GLOBALS['pc_makers'])) {
-    $input['pc_maker'] = $GLOBALS['pc_makers']['other'];
-  } else {
-    $input['pc_maker'] = $GLOBALS['pc_makers'][$_POST['pc_maker']];
-  }
+  $input['maker'] = $_POST['maker']??'';
+
+  // コメントを確認
+  $input['comments'] = trim($_POST['comments'] ?? '');
 
   return array($errors, $input);
 }
