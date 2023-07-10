@@ -89,7 +89,7 @@ function validate_form() {
 
   // パソコンメーカーが選択されているか確認
   if (!array_key_exists($_POST['pc_maker'], $GLOBALS['pc_makers'])) {
-    $errors[] = 'パソコンメーカーを選択してください。';
+    $input['pc_maker'] = $GLOBALS['pc_makers']['other'];
   } else {
     $input['pc_maker'] = $GLOBALS['pc_makers'][$_POST['pc_maker']];
   }
