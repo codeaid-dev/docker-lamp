@@ -2,12 +2,11 @@
 //$host = 'localhost'; //XAMPP,MAMP,VM
 $host = 'mysql'; //Docker
 $dbname = 'survey';
-$dbuser = 'root';
-$dbpass = 'password';
-
+$user = 'root';
+$password = 'password';
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 try {
-  $pdo = new PDO($dsn, $dbuser, $dbpass); //MySQL
+  $pdo = new PDO($dsn, $user, $password); //MySQL
   //$pdo = new PDO('sqlite:./survey.db'); //SQLite
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -18,7 +17,8 @@ try {
     program VARCHAR(256) NOT NULL,
     pc VARCHAR(256) NOT NULL,
     maker VARCHAR(256) NOT NULL,
-    comments VARCHAR(256) NOT NULL
+    comments VARCHAR(256) NOT NULL,
+    uptime DATETIME NOT NULL
   );");
 } catch (PDOException $e) {
   die ('エラー：'.$e->getMessage());

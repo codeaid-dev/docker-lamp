@@ -18,31 +18,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'index.php';
   } else {
     // サブミットされたデータが有効なら処理する
-    //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
-    $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
-    //$dsn = 'sqlite:./bookstore.db'; // SQLiteの場合
+    //$host = 'localhost'; //XAMPP,MAMP,VM
+    $host = 'mysql'; //Docker
+    $dbname = 'survey';
     $user = 'root';
     $password = 'password';
-
+    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
     try {
-      $db = new PDO($dsn, $user, $password);
-      //$db = new PDO($dsn); //SQLiteの場合
-      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-      $stmt = $db->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments) VALUES (?,?,?,?,?,?,?)");
+      $pdo = new PDO($dsn, $user, $password);
+      //$pdo = new PDO($dsn); //SQLiteの場合
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
+      $stmt = $pdo->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments,uptime) VALUES (?,?,?,?,?,?,?,NOW())");
       $stmt->bindParam(1, $input['name'], PDO::PARAM_STR);
       $stmt->bindParam(2, $input['email'], PDO::PARAM_STR);
       $stmt->bindParam(3, $input['age'], PDO::PARAM_STR);
-      $stmt->bindParam(4, implode("|",$input['program']), PDO::PARAM_STR);
+      $program = implode("|",$input['program']);
+      $stmt->bindParam(4, $program, PDO::PARAM_STR);
       $stmt->bindParam(5, $input['pc'], PDO::PARAM_STR);
       $stmt->bindParam(6, $GLOBALS['makers'][$input['maker']], PDO::PARAM_STR);
       $stmt->bindParam(7, $input['comments'], PDO::PARAM_STR);
       $stmt->execute();
-    } catch (PDOException $e) {
+      print '<h2>ご回答ありがとうございます。</h2>';
+      $display=<<<_SURVEY_
+      名前： {$input['name']}
+      メールアドレス：{$input['email']}
+      年齢：{$input['age']}
+      興味のあるプログラミング言語：{$program}
+      学習に使われるパソコン：{$input['pc']}
+      パソコンメーカー：{$GLOBALS['makers'][$input['maker']]}
+      _SURVEY_;
+      if (strlen(trim($input['comments']))) {
+        $display .= "\nコメント：\n".$input['comments'];
+      }
+      // HTMLエスケープし、改行(\n)を<br>タグに変える
+      print nl2br(htmlspecialchars($display, ENT_HTML5));
+      print '<p><a href="index.php">トップ</a></p>';
+  } catch (PDOException $e) {
       die ('エラー：'.$e->getMessage());
     }
   }
 } else {
   include 'index.php';
+}
+
+function existUser($email) {
+  //$host = 'localhost'; //XAMPP,MAMP,VM
+  $host = 'mysql'; //Docker
+  $dbname = 'survey';
+  $dbuser = 'root';
+  $dbpass = 'password';
+  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+  try {
+    $pdo = new PDO($dsn, $dbuser, $dbpass); //MySQL
+    //$pdo = new PDO('sqlite:./survey.db'); //SQLite
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $stmt = $pdo->prepare("SELECT * FROM answers WHERE email=?");
+    $stmt->bindParam(1, $email, PDO::PARAM_STR);
+    $stmt->execute();
+    if ($stmt->fetch()) {
+      return true;
+    }
+    return false;
+  } catch (PDOException $e) {
+    die ('エラー：'.$e->getMessage());
+  }
 }
 
 function validate_form() {
@@ -60,6 +101,10 @@ function validate_form() {
   if (!$input['email']) {
     $errors[] = '正しいメールアドレスを入力してください。';
     $input['email'] = $_POST['email']??'';
+  } else {
+    if (existUser($input['email'])) {
+      $errors[] = 'すでにこのメールアドレスで回答済みです。';
+    }
   }
 
   // 18才以上の年齢が入力されているか確認
