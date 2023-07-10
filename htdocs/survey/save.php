@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $stmt->bindParam(6, $GLOBALS['makers'][$input['maker']], PDO::PARAM_STR);
       $stmt->bindParam(7, $input['comments'], PDO::PARAM_STR);
       $stmt->execute();
-      print '<h2>ご回答ありがとうございます。</h2>';
+      print '<h2>ご回答ありがとうございました。</h2>';
       $display=<<<_SURVEY_
       名前： {$input['name']}
       メールアドレス：{$input['email']}
