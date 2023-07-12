@@ -12,7 +12,7 @@ $makers = array('lenovo' => 'Lenovo',
 'other' => 'その他');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // validate_form()がエラーを返したら、エラーをshow_form()に渡す
+  // validate_form()がエラーを返したらエラーを表示する
   list($errors, $input) = validate_form();
   if ($errors) {
     include 'index.php';
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //$pdo = new PDO($dsn); //SQLiteの場合
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-      $stmt = $pdo->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments,uptime) VALUES (?,?,?,?,?,?,?,NOW())");
+      $stmt = $pdo->prepare("INSERT INTO answers (uptime,name,email,age,program,pc,maker,comments) VALUES (NOW(),?,?,?,?,?,?,?)");
       $stmt->bindParam(1, $input['name'], PDO::PARAM_STR);
       $stmt->bindParam(2, $input['email'], PDO::PARAM_STR);
       $stmt->bindParam(3, $input['age'], PDO::PARAM_STR);
@@ -47,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       興味のあるプログラミング言語：{$program}
       学習に使われるパソコン：{$input['pc']}
       パソコンメーカー：{$GLOBALS['makers'][$input['maker']]}
+      コメント：\n
       _SURVEY_;
       if (strlen(trim($input['comments']))) {
-        $display .= "\nコメント：\n".$input['comments'];
+        $display .= $input['comments'];
       }
       // HTMLエスケープし、改行(\n)を<br>タグに変える
       print nl2br(htmlspecialchars($display, ENT_HTML5));

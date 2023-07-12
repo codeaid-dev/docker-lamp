@@ -11,14 +11,18 @@ try {
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   $pdo->query("CREATE TABLE IF NOT EXISTS answers (
+    uptime DATETIME NOT NULL,
     name VARCHAR(256) NOT NULL,
     email VARCHAR(256) NOT NULL PRIMARY KEY,
     age VARCHAR(256) NOT NULL,
     program VARCHAR(256) NOT NULL,
     pc VARCHAR(256) NOT NULL,
     maker VARCHAR(256) NOT NULL,
-    comments VARCHAR(256) NOT NULL,
-    uptime DATETIME NOT NULL
+    comments VARCHAR(256) NOT NULL
+  );");
+  $pdo->query("CREATE TABLE IF NOT EXISTS siteadmin (
+    username VARCHAR(256) NOT NULL PRIMARY KEY,
+    password VARCHAR(256) NOT NULL
   );");
 } catch (PDOException $e) {
   die ('エラー：'.$e->getMessage());

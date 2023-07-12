@@ -15,7 +15,7 @@ require_once 'config.php';
       <tr>
         <td>以下のエラーを修正してください：</td>
       </tr><tr>
-        <td><ul>
+        <td style="color:red;"><ul>
           <?php foreach ($errors as $error) { ?>
             <li><?= htmlspecialchars($error) ?></li>
           <?php } ?>
