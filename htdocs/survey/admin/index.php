@@ -35,6 +35,14 @@ if (isset($_POST['download']) && !empty($answers)) {
   exit;
 }
 
+if (isset($_POST['delete'])) {
+  $stmt = $pdo->prepare("DELETE FROM answers WHERE email=?");
+  $stmt->bindParam(1, $_POST['delete'], PDO::PARAM_STR);
+  $stmt->execute();
+  header('Location: index.php');
+  exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -55,6 +63,7 @@ if (isset($_POST['download']) && !empty($answers)) {
       <th>学習に使っているパソコン</th>
       <th>パソコンメーカー</th>
       <th>コメント</th>
+      <th>処理</th>
     </tr>
     <?php foreach($answers as $answer): ?>
     <tr>
@@ -66,6 +75,12 @@ if (isset($_POST['download']) && !empty($answers)) {
       <td><?= htmlspecialchars($answer['pc']) ?></td>
       <td><?= htmlspecialchars($answer['maker']) ?></td>
       <td><?= nl2br(htmlspecialchars($answer['comments'])) ?></td>
+      <td>
+        <form method="POST">
+          <input type="hidden" name="delete" value="<?= $answer['email'] ?>">
+          <button type="submit">削除</button>
+        </form>
+      </td>
     </tr>
     <?php endforeach; ?>
   </table>
