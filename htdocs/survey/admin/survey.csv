@@ -1,4 +1,4 @@
 回答日時,名前,メールアドレス,年齢,興味のあるプログラミング言語,学習に使っているパソコン,パソコンメーカー,コメント
-"2023-07-12 09:45:56",foobar,foo@c.com,20,Java|C/C++,ノートPC,DELL,"テスト
-コメント"
-"2023-07-12 09:32:16",hoge,hoge@b.com,23,C/C++|Ruby,ノートPC,Apple,test
+"2023-07-13 16:53:27",田中二郎,tanaka@sample.com,30,Python,デスクトップPC,DELL,"データ分析の学習
+後にAIの学習を予定"
+"2023-07-12 20:58:18",山田太郎,yamada@sample.com,25,PHP|JavaScript,ノートPC,Apple,Webアプリの学習中

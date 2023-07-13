@@ -15,10 +15,10 @@ try {
     name VARCHAR(256) NOT NULL,
     email VARCHAR(256) NOT NULL PRIMARY KEY,
     age VARCHAR(256) NOT NULL,
-    program VARCHAR(256) NOT NULL,
+    program VARCHAR(256),
     pc VARCHAR(256) NOT NULL,
     maker VARCHAR(256) NOT NULL,
-    comments VARCHAR(256) NOT NULL
+    comments VARCHAR(256)
   );");
   $pdo->query("CREATE TABLE IF NOT EXISTS siteadmin (
     username VARCHAR(256) NOT NULL PRIMARY KEY,

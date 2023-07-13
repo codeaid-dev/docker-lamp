@@ -43,6 +43,12 @@ if (isset($_POST['delete'])) {
   exit;
 }
 
+if (isset($_POST['alldel'])) {
+  $stmt = $pdo->query("DELETE FROM answers");
+  header('Location: index.php');
+  exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -85,7 +91,8 @@ if (isset($_POST['delete'])) {
     <?php endforeach; ?>
   </table>
   <form method="POST">
-    <p><button type="submit" name="download">ダウンロード</button></p>
+    <p><button type="submit" name="download">ダウンロード</button>
+    <button type="submit" name="alldel" style="margin-left:20px;">全て削除</button></p>
   </form>
   <p><a href="logout.php">ログアウト</a></p>
 </body>
