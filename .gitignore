@@ -11,3 +11,4 @@ docker-lamp.code-workspace
 !/htdocs/quiz/
 !/htdocs/todo/
 !/htdocs/survey/
+!/htdocs/blog/
