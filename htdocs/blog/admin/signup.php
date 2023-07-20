@@ -43,7 +43,7 @@ if(isset($_POST['signup'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アンケート</title>
+  <title>ブログアプリ</title>
 </head>
 <body>
   <?php if (isset($error)) { ?>
