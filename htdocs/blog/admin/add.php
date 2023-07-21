@@ -28,10 +28,10 @@ try {
   <h1>記事追加</h1>
   <form method="POST">
     <label for="title">タイトル</label><br>
-    <input type="text" id="title" name="title"><br><br>
+    <input type="text" id="title" name="title" required><br><br>
 
     <label for="article">記事</label><br>
-    <textarea id="article" name="article" rows="5" cols="40"></textarea>
+    <textarea id="article" name="article" rows="5" cols="40" required></textarea>
     <p><button type="submit" name="add">追加</button></p>
   </form>
 </body>
