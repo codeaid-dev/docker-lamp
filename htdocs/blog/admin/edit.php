@@ -7,7 +7,7 @@ try {
     if (isset($_POST['update'])) {
       $title = $_POST['title'];
       $article = $_POST['article'];
-      $sql = 'UPDATE posts SET updatetime=NOW(), title=?, article=? WHERE id=?';
+      $sql = 'UPDATE posts SET title=?, article=? WHERE id=?';
       $stmt = $pdo->prepare($sql);
       $stmt->bindValue(1, $title, PDO::PARAM_STR);
       $stmt->bindValue(2, $article, PDO::PARAM_STR);

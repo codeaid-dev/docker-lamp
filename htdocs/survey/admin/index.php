@@ -17,7 +17,7 @@ if (isset($_POST['download']) && !empty($answers)) {
   $csvstr = array('回答日時','名前','メールアドレス','年齢','興味のあるプログラミング言語','学習に使っているパソコン','パソコンメーカー','コメント');
   fputcsv($fp, $csvstr);
   foreach ($answers as $answer) {
-    $csvstr = array($answer['uptime'],$answer['name'],$answer['email'],$answer['age'],$answer['program'],$answer['pc'],$answer['maker']);
+    $csvstr = array($answer['created_at'],$answer['name'],$answer['email'],$answer['age'],$answer['program'],$answer['pc'],$answer['maker']);
     if (strpos($answer['comments'], '\n')) {
       $csvstr[] = "\"".$answer['comments']."\"";
     } else {
@@ -73,7 +73,7 @@ if (isset($_POST['alldel'])) {
     </tr>
     <?php foreach($answers as $answer): ?>
     <tr>
-      <td><?= htmlspecialchars($answer['uptime']) ?></td>
+      <td><?= htmlspecialchars($answer['created_at']) ?></td>
       <td><?= htmlspecialchars($answer['name']) ?></td>
       <td><?= htmlspecialchars($answer['email']) ?></td>
       <td><?= htmlspecialchars($answer['age']) ?></td>

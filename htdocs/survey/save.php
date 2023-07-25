@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //$pdo = new PDO($dsn); //SQLiteの場合
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-      $stmt = $pdo->prepare("INSERT INTO answers (uptime,name,email,age,program,pc,maker,comments) VALUES (NOW(),?,?,?,?,?,?,?)");
+      $stmt = $pdo->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments) VALUES (?,?,?,?,?,?,?)");
       $stmt->bindParam(1, $input['name'], PDO::PARAM_STR);
       $stmt->bindParam(2, $input['email'], PDO::PARAM_STR);
       $stmt->bindParam(3, $input['age'], PDO::PARAM_STR);

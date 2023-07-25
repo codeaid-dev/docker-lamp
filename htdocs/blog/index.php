@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-$stmt = $pdo->query("SELECT id,title,newtime,updatetime FROM posts ORDER BY updatetime DESC");
+$stmt = $pdo->query("SELECT id,title,created_at,updated_at FROM posts ORDER BY updated_at DESC");
 $posts = $stmt->fetchAll();
 ?>
 <?php if (isset($_GET['post'])) { ?>
@@ -23,8 +23,8 @@ $posts = $stmt->fetchAll();
     <body>
       <h1><?= htmlspecialchars($post['title']) ?></h1>
       <p>
-        作成日時：<?php echo htmlspecialchars($post['newtime']); ?><br>
-        更新日時：<?php echo htmlspecialchars($post['updatetime']); ?>
+        作成日時：<?php echo htmlspecialchars($post['created_at']); ?><br>
+        更新日時：<?php echo htmlspecialchars($post['updated_at']); ?>
       </p>
       <p><?php echo nl2br(htmlspecialchars($post['article'])); ?></p>
       <p><a href="index.php">トップ</a></p>
@@ -49,11 +49,11 @@ $posts = $stmt->fetchAll();
       <ul>
         <?php foreach ($posts as $post): ?>
           <li>
-            <?php $newtime = new DateTime($post['newtime']);
-            $updatetime = new DateTime($post['updatetime']); ?>
+            <?php $created_at = new DateTime($post['created_at']);
+            $updated_at = new DateTime($post['updated_at']); ?>
             <p><a href="index.php?post=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title'], ENT_QUOTES, 'UTF-8'); ?></a><br>
-            <span style="font-size:10px; margin-right:10px;">作成日：<?php echo $newtime->format('Y/m/d'); ?></span>
-            <span style="font-size:10px;">更新日：<?php echo $updatetime->format('Y/m/d'); ?></span></p>
+            <span style="font-size:10px; margin-right:10px;">作成日：<?php echo $created_at->format('Y/m/d'); ?></span>
+            <span style="font-size:10px;">更新日：<?php echo $updated_at->format('Y/m/d'); ?></span></p>
           </li>
         <?php endforeach; ?>
       </ul>

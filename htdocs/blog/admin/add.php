@@ -5,7 +5,7 @@ try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $article = $_POST['article'];
-    $sql = 'INSERT INTO posts (newtime, updatetime, title, article) VALUES (NOW(), NOW(), ?, ?)';
+    $sql = 'INSERT INTO posts (title, article) VALUES (?, ?)';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(1, $title, PDO::PARAM_STR);
     $stmt->bindValue(2, $article, PDO::PARAM_STR);

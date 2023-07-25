@@ -11,7 +11,7 @@ try {
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   $pdo->query("CREATE TABLE IF NOT EXISTS answers (
-    uptime DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR(256) NOT NULL,
     email VARCHAR(256) NOT NULL PRIMARY KEY,
     age VARCHAR(256) NOT NULL,
