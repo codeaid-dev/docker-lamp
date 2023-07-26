@@ -16,7 +16,7 @@ try {
   die ('エラー：'.$e->getMessage());
 }
 if($user){
-  $error = '管理者はすでに登録済みです。';
+  $exist = '管理者はすでに登録済みです。';
 }
 
 if(isset($_POST['signup'])){
@@ -46,9 +46,12 @@ if(isset($_POST['signup'])){
   <title>アンケート</title>
 </head>
 <body>
-  <?php if (isset($error)) { ?>
-    <p><?php echo $error; ?></p>
+  <?php if (isset($exist)) { ?>
+    <p><?php echo $exist; ?></p>
   <?php } else { ?>
+    <?php if (isset($error)) { ?>
+      <p><?php echo $error; ?></p>
+    <?php } ?>
     <h1>管理者登録</h1>
     <form method="post">
       <label>ユーザー名：<input type="text" name="username" required></label><br>
