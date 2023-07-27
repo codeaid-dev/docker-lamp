@@ -28,7 +28,7 @@ if (isset($_POST['download']) && !empty($answers)) {
   fclose($fp);
 
   //HTTPヘッダを設定し出力する
-  header('Content-Type: application/octet-stream');
+  header('Content-Type: text/csv');
   header('Content-Length: '.filesize($filepath));
   header('Content-Disposition: attachment; filename=download.csv');
   readfile($filepath);
