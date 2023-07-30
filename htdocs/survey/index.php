@@ -59,7 +59,7 @@ require_once 'config.php';
     <label for="maker">パソコンメーカー：</label>
     <select name="maker" id="maker">
       <option value="other">選択してください。</option>
-      <option value="lenovo" <?= isset($input['maker'])&&$input['maker']=="lenove"?"selected":"" ?>>Lenovo</option>
+      <option value="lenovo" <?= isset($input['maker'])&&$input['maker']=="lenovo"?"selected":"" ?>>Lenovo</option>
       <option value="dell" <?= isset($input['maker'])&&$input['maker']=="dell"?"selected":"" ?>>DELL</option>
       <option value="hp" <?= isset($input['maker'])&&$input['maker']=="hp"?"selected":"" ?>>HP</option>
       <option value="apple" <?= isset($input['maker'])&&$input['maker']=="apple"?"selected":"" ?>>Apple</option>
