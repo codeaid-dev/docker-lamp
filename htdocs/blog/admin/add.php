@@ -1,5 +1,11 @@
 <?php
+session_start();
 require_once '../config.php';
+
+if(!isset($_SESSION['username'])){
+  header('Location: login.php');
+  exit;
+}
 
 try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,7 +28,7 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>記事追加</title>
+  <title>ブログアプリ</title>
 </head>
 <body>
   <h1>記事追加</h1>
@@ -34,5 +40,6 @@ try {
     <textarea id="article" name="article" rows="5" cols="40" required></textarea>
     <p><button type="submit" name="add">追加</button></p>
   </form>
+  <p><a href="index.php">トップ</a></p>
 </body>
 </html>

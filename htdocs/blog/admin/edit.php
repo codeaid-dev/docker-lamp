@@ -1,5 +1,11 @@
 <?php
+session_start();
 require_once '../config.php';
+
+if(!isset($_SESSION['username'])){
+  header('Location: login.php');
+  exit;
+}
 
 try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,22 +44,19 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>記事編集</title>
+  <title>ブログアプリ</title>
 </head>
 <body>
   <h1>記事編集</h1>
-  <?php if (!empty($post)) { ?>
-    <form method="POST">
-      <label for="title">タイトル</label><br>
-      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title'], ENT_QUOTES, 'UTF-8'); ?>" required><br><br>
+  <form method="POST">
+    <label for="title">タイトル</label><br>
+    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title'], ENT_QUOTES, 'UTF-8'); ?>" required><br><br>
 
-      <label for="article">記事</label><br>
-      <textarea id="article" name="article" rows="5" cols="40" required><?php echo htmlspecialchars($post['article'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-      <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
-      <p><button type="submit" name="update" style="margin-right:20px;">更新</button><button type="submit" name="delete">削除</button></p>
-    </form>
-  <?php } else { ?>
-    <p>記事がありません。</p>
-  <?php } ?>
+    <label for="article">記事</label><br>
+    <textarea id="article" name="article" rows="5" cols="40" required><?php echo htmlspecialchars($post['article'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+    <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
+    <p><button type="submit" name="update" style="margin-right:20px;">更新</button><button type="submit" name="delete">削除</button></p>
+  </form>
+  <p><a href="index.php">トップ</a></p>
 </body>
 </html>

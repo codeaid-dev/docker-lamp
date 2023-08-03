@@ -59,6 +59,6 @@ if(isset($_POST['signup'])){
       <button type="submit" name="signup">登録</button>
     </form>
   <?php } ?>
-  <p><a href="login.php">戻る</a></p>
+  <p><a href="login.php">ログイン</a></p>
 </body>
 </html>

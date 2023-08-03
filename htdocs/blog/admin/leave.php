@@ -21,7 +21,6 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
   <p><?php echo htmlspecialchars($user); ?>のユーザー登録を解除しました。</p>
-  <p><a href="login.php">ログイン</a>
-  <a href="signup.php" style="margin-left: 20px;">ユーザー登録</a></p>
+  <p><a href="signup.php">ユーザー登録</a></p>
 </body>
 </html>
