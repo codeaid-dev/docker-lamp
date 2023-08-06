@@ -1,16 +1,4 @@
 <?php
-$makers = array('lenovo' => 'Lenovo',
-'dell' => 'DELL',
-'hp' => 'HP',
-'apple' => 'Apple',
-'dynabook' => 'Dynabook',
-'nec' => 'NEC',
-'vaio' => 'VAIO',
-'asus' => 'ASUS',
-'acer' => 'Acer',
-'self' => '自作PC',
-'other' => 'その他');
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validate_form()がエラーを返したらエラーを表示する
   list($errors, $input) = validate_form();
@@ -36,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $program = implode("|",$input['program']);
       $stmt->bindParam(4, $program, PDO::PARAM_STR);
       $stmt->bindParam(5, $input['pc'], PDO::PARAM_STR);
-      $stmt->bindParam(6, $GLOBALS['makers'][$input['maker']], PDO::PARAM_STR);
+      $stmt->bindParam(6, $input['maker'], PDO::PARAM_STR);
       $stmt->bindParam(7, $input['comments'], PDO::PARAM_STR);
       $stmt->execute();
       print '<h2>ご回答ありがとうございました。</h2>';
@@ -46,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       年齢：{$input['age']}
       興味のあるプログラミング言語：{$program}
       学習に使われるパソコン：{$input['pc']}
-      パソコンメーカー：{$GLOBALS['makers'][$input['maker']]}
+      パソコンメーカー：{$input['maker']}
       コメント：\n
       _SURVEY_;
       if (strlen(trim($input['comments']))) {

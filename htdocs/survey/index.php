@@ -57,18 +57,18 @@ require_once 'config.php';
     </fieldset>
     </p><p>
     <label for="maker">パソコンメーカー：</label>
-    <select name="maker" id="maker">
-      <option value="other">選択してください。</option>
-      <option value="lenovo" <?= isset($input['maker'])&&$input['maker']=="lenovo"?"selected":"" ?>>Lenovo</option>
-      <option value="dell" <?= isset($input['maker'])&&$input['maker']=="dell"?"selected":"" ?>>DELL</option>
-      <option value="hp" <?= isset($input['maker'])&&$input['maker']=="hp"?"selected":"" ?>>HP</option>
-      <option value="apple" <?= isset($input['maker'])&&$input['maker']=="apple"?"selected":"" ?>>Apple</option>
-      <option value="dynabook" <?= isset($input['maker'])&&$input['maker']=="dynabook"?"selected":"" ?>>Dynabook</option>
-      <option value="nec" <?= isset($input['maker'])&&$input['maker']=="nec"?"selected":"" ?>>NEC</option>
-      <option value="vaio" <?= isset($input['maker'])&&$input['maker']=="vaio"?"selected":"" ?>>VAIO</option>
-      <option value="asus" <?= isset($input['maker'])&&$input['maker']=="asus"?"selected":"" ?>>ASUS</option>
-      <option value="self" <?= isset($input['maker'])&&$input['maker']=="self"?"selected":"" ?>>自作</option>
-      <option value="other" <?= isset($input['maker'])&&$input['maker']=="other"?"selected":"" ?>>その他</option>
+    <select name="maker" id="maker" required>
+      <option value="">選択してください。</option>
+      <option value="Lenovo" <?= isset($input['maker'])&&$input['maker']=="Lenovo"?"selected":"" ?>>Lenovo</option>
+      <option value="DELL" <?= isset($input['maker'])&&$input['maker']=="DELL"?"selected":"" ?>>DELL</option>
+      <option value="HP" <?= isset($input['maker'])&&$input['maker']=="HP"?"selected":"" ?>>HP</option>
+      <option value="Apple" <?= isset($input['maker'])&&$input['maker']=="Apple"?"selected":"" ?>>Apple</option>
+      <option value="Dynabook" <?= isset($input['maker'])&&$input['maker']=="Dynabook"?"selected":"" ?>>Dynabook</option>
+      <option value="NEC" <?= isset($input['maker'])&&$input['maker']=="NEC"?"selected":"" ?>>NEC</option>
+      <option value="VAIO" <?= isset($input['maker'])&&$input['maker']=="VAIO"?"selected":"" ?>>VAIO</option>
+      <option value="ASUS" <?= isset($input['maker'])&&$input['maker']=="ASUS"?"selected":"" ?>>ASUS</option>
+      <option value="自作" <?= isset($input['maker'])&&$input['maker']=="自作"?"selected":"" ?>>自作</option>
+      <option value="その他" <?= isset($input['maker'])&&$input['maker']=="その他"?"selected":"" ?>>その他</option>
     </select>
     </p><p>
       <label for="comments">コメント：</label><br>
