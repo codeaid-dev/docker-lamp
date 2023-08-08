@@ -46,13 +46,13 @@ if(isset($_POST['signup'])){
   <title>ブログアプリ</title>
 </head>
 <body>
+  <h1>管理者登録</h1>
   <?php if (isset($exist)) { ?>
     <p><?php echo $exist; ?></p>
   <?php } else { ?>
     <?php if (isset($error)) { ?>
       <p><?php echo $error; ?></p>
     <?php } ?>
-    <h1>管理者登録</h1>
     <form method="post">
       <label>ユーザー名：<input type="text" name="username" required></label><br>
       <label>パスワード：<input type="password" name="password" required></label><br>
