@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-  $username = $_SESSION['username'];
+  $username = htmlspecialchars($_SESSION['username']);
   unset($_SESSION['username']);
   print <<<HTML
   <!DOCTYPE html>
