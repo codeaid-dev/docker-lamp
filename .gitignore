@@ -5,8 +5,10 @@ docker-lamp.code-workspace
 !/htdocs/sample.php
 !/htdocs/sample2.php
 !/htdocs/sample3.php
+!/htdocs/threat1.php
+!/htdocs/threat2.php
 !/htdocs/css/
-!/htdocs/db/
+!/htdocs/db/dummy.md
 !/htdocs/books/
 !/htdocs/quiz/
 !/htdocs/todo/
