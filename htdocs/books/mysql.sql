@@ -1,7 +1,7 @@
-/* bookstrageデータベース作成 */
-CREATE DATABASE bookstrage;
+/* booksデータベース作成 */
+CREATE DATABASE books;
 
-USE bookstrage;
+USE books;
 /* booksテーブル作成 */
 CREATE TABLE books (
   isbn VARCHAR(17) NOT NULL PRIMARY KEY,

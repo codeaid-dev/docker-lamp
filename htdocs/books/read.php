@@ -7,15 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $delete = htmlspecialchars($_POST['delete']);
   }
 
-  //$dsn = 'mysql:host=localhost;dbname=bookstrage;charset=utf8'; // XAMPP/MAMP/VMの場合
-  $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
-  //$dsn = 'sqlite:./bookstrage.db'; // SQLiteの場合
+  //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8'; // XAMPP/MAMP/VMの場合
+  $dsn = 'mysql:host=mysql;dbname=books;charset=utf8'; // Dockerの場合
+  //$dsn = 'sqlite:./books.db'; // SQLiteの場合
   $user = 'root';
   $password = 'password';
 
   try {
     $db = new PDO($dsn, $user, $password);
     //$db = new PDO($dsn); //SQLiteの場合
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
     if (isset($delete)) {
       $stmt = $db->prepare("DELETE FROM books WHERE isbn=:isbn");

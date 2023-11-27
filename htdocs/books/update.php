@@ -13,21 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       print implode('</li><li>', $errors);
       print '</li></ul>';
       $update = htmlspecialchars($_POST['isbn']);
-      //exit();
     } else {
       $isbn = htmlspecialchars($_POST['isbn']);
       $name = htmlspecialchars($_POST['name']);
       $price = $input['price'];
       $page = $input['page'];
       $date = htmlspecialchars($_POST['date']);
-      //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8'; // XAMPP/MAMP/VMの場合
-      $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8'; // Dockerの場合
-      //$dsn = 'sqlite:./bookstrage.db'; // SQLiteの場合
+      //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8'; // XAMPP/MAMP/VMの場合
+      $dsn = 'mysql:host=mysql;dbname=books;charset=utf8'; // Dockerの場合
+      //$dsn = 'sqlite:./books.db'; // SQLiteの場合
       $user = 'root';
       $password = 'password';
       try {
         $db = new PDO($dsn, $user, $password);
         //$db = new PDO($dsn); //SQLiteの場合
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
         $stmt = $db->prepare("UPDATE books SET name=:name, price=:price, page=:page, date=:date WHERE isbn='$isbn'");
   //      $stmt->bindParam(':isbn', $isbn, PDO::PARAM_STR);

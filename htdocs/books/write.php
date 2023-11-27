@@ -12,23 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     print '</li></ul>';
     //exit();
   } else {
-    //$dsn = 'mysql:host=localhost;dbname=bookstore;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
-    $dsn = 'mysql:host=mysql;dbname=bookstrage;charset=utf8mb4'; // Dockerの場合
-    //$dsn = 'sqlite:./bookstrage.db'; // SQLiteの場合
+    //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
+    $dsn = 'mysql:host=mysql;dbname=books;charset=utf8mb4'; // Dockerの場合
+    //$dsn = 'sqlite:./books.db'; // SQLiteの場合
     $user = 'root';
     $password = 'password';
 
     try {
       $db = new PDO($dsn, $user, $password);
       //$db = new PDO($dsn); //SQLiteの場合
+      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-      $db->query("CREATE TABLE IF NOT EXISTS books (
-        isbn VARCHAR(17) NOT NULL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        price INT NOT NULL,
-        page INT NOT NULL,
-        date VARCHAR(255) NOT NULL
-      ) DEFAULT CHARACTER SET=utf8;");
 
       $res = $db->query("SELECT * FROM books WHERE isbn='$isbn'");
       if (count($res->fetchAll()) != 0) {
