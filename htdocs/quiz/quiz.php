@@ -26,17 +26,19 @@ try {
     }
   } else { //ページが表示されたときはランダムに出題する
     $sql = $db->query("SELECT * FROM questions");
-    $q = array();
+    $questions = array();
     foreach ($sql as $row) {
       $tmp=array();
       $tmp['id'] = $row['id'];
       $tmp['question'] = $row['question'];
       $tmp['answer'] = $row['answer'];
-      $q[] = $tmp;
+      $questions[] = $tmp;
     }
-    $key = array_rand($q, 1);
-    $id = $q[$key]['id'];
-    $question = $q[$key]['question'];
+    if (!empty($questions)) {
+      $key = array_rand($questions, 1);
+      $id = $questions[$key]['id'];
+      $question = $questions[$key]['question'];
+    }
   }
 
 } catch (PDOException $e) {
@@ -52,19 +54,23 @@ try {
 </head>
 <body>
   <h1>クイズ出題</h1>
-  <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
-    <input type="hidden" name="id" value="<?= $id ?>">
-    <p>問題：<?= htmlspecialchars($question) ?></p>
-    <p><label>答え：<input type="text" name="answer" value="<?= htmlspecialchars($answer) ?>" required></label></p>
-    <button type="submit">解答</button>
-  </form>
-  <h2>結果表示</h2>
-  <?php if (isset($result)) : ?>
-    <p><?= $result ?></p>
+  <?php if (!empty($questions)) : ?>
+    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+      <input type="hidden" name="id" value="<?= $id ?>">
+      <p>問題：<?= htmlspecialchars($question) ?></p>
+      <p><label>答え：<input type="text" name="answer" value="<?= htmlspecialchars($answer) ?>" required></label></p>
+      <button type="submit">解答</button>
+    </form>
+    <h2>結果表示</h2>
+    <?php if (isset($result)) : ?>
+      <p><?= $result ?></p>
+    <?php endif; ?>
+    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="GET">
+      <button type="submit">次の問題</button>
+    </form>
+  <?php else : ?>
+    <p>問題がありません。</p>
   <?php endif; ?>
-  <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="GET">
-    <button type="submit">次の問題</button>
-  </form>
   <p><span style="margin-right: 30px"><a href="index.php">トップ</a></span><span style="margin-right: 30px"><a href="edit.php">編集</a></span><a href="save.php">新規作成</a></p>
 </body>
 </html>
