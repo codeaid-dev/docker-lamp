@@ -5,8 +5,8 @@
   $user = 'root';
   $password = 'password';
   try {
-    $db = new PDO($dsn, $user, $password);
-    //$db = new PDO($dsn); //SQLiteの場合
+    $db = new PDO($dsn, $user, $password); //MySQL
+    //$db = new PDO($dsn); //SQLite
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
     $db->query("CREATE TABLE IF NOT EXISTS questions (

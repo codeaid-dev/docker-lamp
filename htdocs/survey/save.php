@@ -6,12 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'index.php';
   } else {
     // サブミットされたデータが有効なら処理する
-    //$host = 'localhost'; //XAMPP,MAMP,VM
-    $host = 'mysql'; //Docker
-    $dbname = 'survey';
+    //$dsn = 'mysql:host=localhost;dbname=survey;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
+    $dsn = 'mysql:host=mysql;dbname=survey;charset=utf8mb4'; // Dockerの場合
+    //$dsn = 'sqlite:./survey.db'; // SQLiteの場合
     $user = 'root';
     $password = 'password';
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
     try {
       $pdo = new PDO($dsn, $user, $password);
       //$pdo = new PDO($dsn); //SQLiteの場合
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // HTMLエスケープし、改行(\n)を<br>タグに変える
       print nl2br(htmlspecialchars($display, ENT_HTML5));
       print '<p><a href="index.php">トップ</a></p>';
-  } catch (PDOException $e) {
+    } catch (PDOException $e) {
       die ('エラー：'.$e->getMessage());
     }
   }

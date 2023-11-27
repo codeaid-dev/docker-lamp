@@ -6,7 +6,7 @@
   $password = 'password';
   try {
     $pdo = new PDO($dsn, $user, $password); //MySQL
-    //$pdo = new PDO('sqlite:./books.db'); //SQLite
+    //$db = new PDO($dsn); //SQLite
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo->query("CREATE TABLE IF NOT EXISTS books (

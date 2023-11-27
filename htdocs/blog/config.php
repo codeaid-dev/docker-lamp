@@ -1,13 +1,12 @@
 <?php
-//$host = 'localhost'; //XAMPP,MAMP,VM
-$host = 'mysql'; //Docker
-$dbname = 'blog';
+//$dsn = 'mysql:host=localhost;dbname=blog;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
+$dsn = 'mysql:host=mysql;dbname=blog;charset=utf8mb4'; // Dockerの場合
+//$dsn = 'sqlite:./blog.db'; // SQLiteの場合
 $user = 'root';
 $password = 'password';
-$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 try {
   $pdo = new PDO($dsn, $user, $password); //MySQL
-  //$pdo = new PDO('sqlite:./survey.db'); //SQLite
+  //$pdo = new PDO($dsn); //SQLite
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   $pdo->query("CREATE TABLE IF NOT EXISTS posts (
