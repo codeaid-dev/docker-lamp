@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     print '<ul><li>';
     print implode('</li><li>', $errors);
     print '</li></ul>';
-    //exit();
   } else {
     //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
     $dsn = 'mysql:host=mysql;dbname=books;charset=utf8mb4'; // Dockerの場合
