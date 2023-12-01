@@ -15,3 +15,4 @@ docker-lamp.code-workspace
 !/htdocs/todo/
 !/htdocs/survey/
 !/htdocs/blog/
+!/htdocs/session.php
