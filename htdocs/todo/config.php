@@ -1,4 +1,10 @@
 <?php
+$expire = 60;
+ini_set('session.gc_divisor', 1);
+ini_set('session.gc_maxlifetime', $expire);
+session_set_cookie_params($expire);
+session_start();
+
 //$dsn = 'mysql:host=localhost;dbname=todo;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
 $dsn = 'mysql:host=mysql;dbname=todo;charset=utf8mb4'; // Dockerの場合
 //$dsn = 'sqlite:./todo.db'; // SQLiteの場合
