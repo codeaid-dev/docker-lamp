@@ -1,4 +1,6 @@
 <?php
+require_once 'config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (in_array('keyword',array_keys($_POST))) {
     $keyword = htmlspecialchars($_POST['keyword']);
@@ -7,17 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $delete = htmlspecialchars($_POST['delete']);
   }
 
-  //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8'; // XAMPP/MAMP/VMの場合
-  $dsn = 'mysql:host=mysql;dbname=books;charset=utf8'; // Dockerの場合
-  //$dsn = 'sqlite:./books.db'; // SQLiteの場合
-  $user = 'root';
-  $password = 'password';
-
   try {
-    $db = new PDO($dsn, $user, $password);
-    //$db = new PDO($dsn); //SQLiteの場合
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
     if (isset($delete)) {
       $stmt = $db->prepare("DELETE FROM books WHERE isbn=:isbn");
       $stmt->execute([':isbn'=>$delete]);
@@ -42,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
   <h1>書籍データ庫</h1>
-  <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+  <form method="POST">
     <p><label>ISBNもしくは書籍名：<input type="text" name="keyword"></label></p>
     <p><button type="submit">表示</button></p>
   </form>
-  <p><span style="margin-right: 30px"><a href="index.html">トップ</a></span><a href="write.php">保存ページ</a></p>
+  <p><span style="margin-right: 30px"><a href="index.php">トップ</a></span><a href="write.php">保存ページ</a></p>
   <hr>
   <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($keyword)): ?>
     <?php while ($row = $stmt->fetch()): ?>

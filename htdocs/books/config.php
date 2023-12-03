@@ -5,11 +5,11 @@
   $user = 'root';
   $password = 'password';
   try {
-    $pdo = new PDO($dsn, $user, $password); //MySQL
+    $db = new PDO($dsn, $user, $password); //MySQL
     //$db = new PDO($dsn); //SQLite
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    $pdo->query("CREATE TABLE IF NOT EXISTS books (
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $db->query("CREATE TABLE IF NOT EXISTS books (
       isbn VARCHAR(17) NOT NULL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       price INT NOT NULL,

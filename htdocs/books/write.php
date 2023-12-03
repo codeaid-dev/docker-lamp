@@ -1,4 +1,6 @@
 <?php
+require_once 'config.php';
+
 $isbn = "";
 $name = "";
 $price = "";
@@ -11,18 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     print implode('</li><li>', $errors);
     print '</li></ul>';
   } else {
-    //$dsn = 'mysql:host=localhost;dbname=books;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
-    $dsn = 'mysql:host=mysql;dbname=books;charset=utf8mb4'; // Dockerの場合
-    //$dsn = 'sqlite:./books.db'; // SQLiteの場合
-    $user = 'root';
-    $password = 'password';
-
     try {
-      $db = new PDO($dsn, $user, $password);
-      //$db = new PDO($dsn); //SQLiteの場合
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-
       $res = $db->query("SELECT * FROM books WHERE isbn='$isbn'");
       if (count($res->fetchAll()) != 0) {
         print '<p>入力したISBNはすでに保存されています。</p>';
@@ -74,7 +65,7 @@ function validate_form() {
 </head>
 <body>
   <h1>書籍データ庫</h1>
-  <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+  <form method="POST">
     <p><label>ISBN：<input type="text" name="isbn" value="<?= htmlspecialchars($isbn) ?>" required></label></p>
     <p><label>書籍名：<input type="text" name="name" value="<?= htmlspecialchars($name) ?>" required></label></p>
     <p><label>価格：<input type="text" name="price" value="<?= htmlspecialchars($price) ?>" required></label></p>
