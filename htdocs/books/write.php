@@ -38,20 +38,20 @@ function validate_form() {
   $input['price'] = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_INT);
   $input['page'] = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT);
   $errors = array();
-  $GLOBALS['isbn'] = htmlspecialchars($_POST['isbn']);
+  $GLOBALS['isbn'] = $_POST['isbn'];
   if (empty($input['isbn'])) {
     $errors[] = 'ISBNは数字で入力してください。';
   }
-  $GLOBALS['name'] = htmlspecialchars($_POST['name']);
-  $GLOBALS['price'] = htmlspecialchars($_POST['price']);
+  $GLOBALS['name'] = $_POST['name'];
+  $GLOBALS['price'] = $_POST['price'];
   if (empty($input['price'])) {
     $errors[] = '価格は数字を入力してください。';
   }
-  $GLOBALS['page'] = htmlspecialchars($_POST['page']);
+  $GLOBALS['page'] = $_POST['page'];
   if (empty($input['page'])) {
     $errors[] = 'ページ数は数字を入力してください。';
   }
-  $GLOBALS['date'] = htmlspecialchars($_POST['date']);
+  $GLOBALS['date'] = $_POST['date'];
 
   return array($errors, $input);
 }
@@ -66,13 +66,13 @@ function validate_form() {
 <body>
   <h1>書籍データ庫</h1>
   <form method="POST">
-    <p><label>ISBN：<input type="text" name="isbn" value="<?= htmlspecialchars($isbn) ?>" required></label></p>
-    <p><label>書籍名：<input type="text" name="name" value="<?= htmlspecialchars($name) ?>" required></label></p>
-    <p><label>価格：<input type="text" name="price" value="<?= htmlspecialchars($price) ?>" required></label></p>
-    <p><label>ページ数：<input type="text" name="page" value="<?= htmlspecialchars($page) ?>" required></label></p>
-    <p><label>発売日：<input type="date" name="date" value="<?= htmlspecialchars($date) ?>" required></label></p>
+    <p><label>ISBN：<input type="text" name="isbn" value="<?= $isbn ?>" required></label></p>
+    <p><label>書籍名：<input type="text" name="name" value="<?= $name ?>" required></label></p>
+    <p><label>価格：<input type="text" name="price" value="<?= $price ?>" required></label></p>
+    <p><label>ページ数：<input type="text" name="page" value="<?= $page ?>" required></label></p>
+    <p><label>発売日：<input type="date" name="date" value="<?= $date ?>" required></label></p>
     <button type="submit">保存</button>
   </form>
-  <p><span style="margin-right: 30px"><a href="index.html">トップ</a></span><a href="read.php">閲覧ページ</a></p>
+  <p><span style="margin-right: 30px"><a href="/books/">トップ</a></span><a href="read.php">閲覧ページ</a></p>
 </body>
 </html>

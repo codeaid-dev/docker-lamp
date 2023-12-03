@@ -2,25 +2,25 @@
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name = htmlspecialchars($_POST['name']);
-  $price = htmlspecialchars($_POST['price']);
-  $page = htmlspecialchars($_POST['page']);
-  $date = htmlspecialchars($_POST['date']);
+  $name = $_POST['name'];
+  $price = $_POST['price'];
+  $page = $_POST['page'];
+  $date = $_POST['date'];
   if (in_array('update',array_keys($_POST))) {
-    $update = htmlspecialchars($_POST['update']);
+    $update = $_POST['update'];
   } else {
     list($errors, $input) = validate_form();
     if ($errors) {
       print '<ul><li>';
       print implode('</li><li>', $errors);
       print '</li></ul>';
-      $update = htmlspecialchars($_POST['isbn']);
+      $update = $_POST['isbn'];
     } else {
-      $isbn = htmlspecialchars($_POST['isbn']);
-      $name = htmlspecialchars($_POST['name']);
+      $isbn = $_POST['isbn'];
+      $name = $_POST['name'];
       $price = $input['price'];
       $page = $input['page'];
-      $date = htmlspecialchars($_POST['date']);
+      $date = $_POST['date'];
       try {
         $stmt = $db->prepare("UPDATE books SET name=:name, price=:price, page=:page, date=:date WHERE isbn='$isbn'");
   //      $stmt->bindParam(':isbn', $isbn, PDO::PARAM_STR);
@@ -79,6 +79,6 @@ function validate_form() {
     <p><label>発売日：<input type="date" name="date" value="<?= htmlspecialchars($date) ?>" required></label></p>
     <button type="submit">修正</button>
   </form>
-  <p><span style="margin-right: 30px"><a href="index.html">トップ</a></span><a href="read.php">閲覧ページ</a></p>
+  <p><span style="margin-right: 30px"><a href="/books/">トップ</a></span><a href="read.php">閲覧ページ</a></p>
 </body>
 </html>

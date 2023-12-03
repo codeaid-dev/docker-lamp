@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <p><label>ISBNもしくは書籍名：<input type="text" name="keyword"></label></p>
     <p><button type="submit">表示</button></p>
   </form>
-  <p><span style="margin-right: 30px"><a href="index.php">トップ</a></span><a href="write.php">保存ページ</a></p>
+  <p><span style="margin-right: 30px"><a href="/books/">トップ</a></span><a href="write.php">保存ページ</a></p>
   <hr>
   <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($keyword)): ?>
     <?php while ($row = $stmt->fetch()): ?>
