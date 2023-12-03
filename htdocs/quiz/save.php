@@ -1,26 +1,19 @@
 <?php
-$question = $_POST['question'] ?? '';
-$answer = $_POST['answer'] ?? '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  //$dsn = 'mysql:host=localhost;dbname=quiz;charset=utf8'; // XAMPP/MAMP/VMの場合
-  $dsn = 'mysql:host=mysql;dbname=quiz;charset=utf8'; // Dockerの場合
-  //$dsn = 'sqlite:./quiz.db'; // SQLiteの場合
-  $user = 'root';
-  $password = 'password';
-  try {
-    $db = new PDO($dsn, $user, $password);
-    //$db = new PDO($dsn); //SQLiteの場合
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-    $stmt = $db->prepare("INSERT INTO questions (question, answer) VALUES (:question, :answer)");
-    $stmt->bindParam(':question', $question, PDO::PARAM_STR);
-    $stmt->bindParam(':answer', $answer, PDO::PARAM_STR);
-    $stmt->execute();
-    print '<p>保存できました。</p>';
-  } catch (PDOException $e) {
-    die ('エラー：'.$e->getMessage());
-  }  
-}
+  require_once 'config.php';
+
+  $question = $_POST['question'] ?? '';
+  $answer = $_POST['answer'] ?? '';
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    try {
+      $stmt = $db->prepare("INSERT INTO questions (question, answer) VALUES (:question, :answer)");
+      $stmt->bindParam(':question', $question, PDO::PARAM_STR);
+      $stmt->bindParam(':answer', $answer, PDO::PARAM_STR);
+      $stmt->execute();
+      print '<p>保存できました。</p>';
+    } catch (PDOException $e) {
+      die ('エラー：'.$e->getMessage());
+    }  
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">

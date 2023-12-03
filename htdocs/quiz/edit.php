@@ -1,17 +1,10 @@
 <?php
+require_once 'config.php';
+
 $id = $_POST['id'] ?? '';
 $question = $_POST['question'] ?? '';
 $answer = $_POST['answer'] ?? '';
-//$dsn = 'mysql:host=localhost;dbname=quiz;charset=utf8'; // XAMPP/MAMP/VMの場合
-$dsn = 'mysql:host=mysql;dbname=quiz;charset=utf8'; // Dockerの場合
-//$dsn = 'sqlite:./quiz.db'; // SQLiteの場合
-$user = 'root';
-$password = 'password';
 try {
-  $db = new PDO($dsn, $user, $password);
-  //$db = new PDO($dsn); //SQLiteの場合
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
-  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
   $sql = $db->query("SELECT * FROM questions");
   $list = array();
   foreach ($sql as $row) {

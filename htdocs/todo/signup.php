@@ -15,7 +15,7 @@ if(isset($_POST['signup'])){
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch();
     if($user){
-      $error = 'このユーザー名は登録できません。';
+      $error = '登録済みユーザーです。';
     } else if (preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!-\/:-@[-`{-~])[!-~]{8,32}$/', $password) !== 1) {
         $error = 'パスワードは8~32文字で大小文字英字数字記号をそれぞれ1文字以上含める必要があります。';
     } else {

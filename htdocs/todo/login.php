@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
       header('Location: index.php');
       exit;
     } else {
-      $error = 'ログイン失敗';
+      $error = 'ユーザー名またはパスワードが間違っています。';
     }
   } catch (PDOException $e) {
     die ('エラー：'.$e->getMessage());

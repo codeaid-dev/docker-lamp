@@ -1,49 +1,41 @@
 <?php
-$id = $_POST['id'] ?? 0;
-$answer = $_POST['answer'] ?? '';
-//$dsn = 'mysql:host=localhost;dbname=quiz;charset=utf8'; // XAMPP/MAMP/VMの場合
-$dsn = 'mysql:host=mysql;dbname=quiz;charset=utf8'; // Dockerの場合
-//$dsn = 'sqlite:./quiz.db'; // SQLiteの場合
-$user = 'root';
-$password = 'password';
-try {
-  $db = new PDO($dsn, $user, $password);
-  //$db = new PDO($dsn); //SQLiteの場合
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
-  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') { //解答ボタンによるPOST送信は正解を判定する
-    $stmt = $db->prepare("SELECT * FROM questions WHERE id=:id");
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    while ($row = $stmt->fetch()) {
-      $question = $row['question'];
-      $ans = $row['answer'];
-    }
-    if ($ans == $answer) {
-      $result = '正解です';
-    } else {
-      $result = "不正解です(正解：{$ans})";
-    }
-  } else { //ページが表示されたときはランダムに出題する
-    $sql = $db->query("SELECT * FROM questions");
-    $questions = array();
-    foreach ($sql as $row) {
-      $tmp=array();
-      $tmp['id'] = $row['id'];
-      $tmp['question'] = $row['question'];
-      $tmp['answer'] = $row['answer'];
-      $questions[] = $tmp;
-    }
-    if (!empty($questions)) {
-      $key = array_rand($questions, 1);
-      $id = $questions[$key]['id'];
-      $question = $questions[$key]['question'];
-    }
-  }
+  require_once 'config.php';
 
-} catch (PDOException $e) {
-  die ('エラー：'.$e->getMessage());
-}  
+  $id = $_POST['id'] ?? 0;
+  $answer = $_POST['answer'] ?? '';
+  try {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') { //解答ボタンによるPOST送信は正解を判定する
+      $stmt = $db->prepare("SELECT * FROM questions WHERE id=:id");
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
+      while ($row = $stmt->fetch()) {
+        $question = $row['question'];
+        $ans = $row['answer'];
+      }
+      if ($ans == $answer) {
+        $result = '正解です';
+      } else {
+        $result = "不正解です(正解：".htmlspecialchars($ans).")";
+      }
+    } else { //ページが表示されたときはランダムに出題する
+      $sql = $db->query("SELECT * FROM questions");
+      $questions = array();
+      foreach ($sql as $row) {
+        $tmp=array();
+        $tmp['id'] = $row['id'];
+        $tmp['question'] = $row['question'];
+        $tmp['answer'] = $row['answer'];
+        $questions[] = $tmp;
+      }
+      if (!empty($questions)) {
+        $key = array_rand($questions, 1);
+        $id = $questions[$key]['id'];
+        $question = $questions[$key]['question'];
+      }
+    }
+  } catch (PDOException $e) {
+    die ('エラー：'.$e->getMessage());
+  }  
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -54,8 +46,8 @@ try {
 </head>
 <body>
   <h1>クイズ出題</h1>
-  <?php if (!empty($questions)) : ?>
-    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+  <?php if (!empty($questions) || !empty($question)) : ?>
+    <form method="POST">
       <input type="hidden" name="id" value="<?= $id ?>">
       <p>問題：<?= htmlspecialchars($question) ?></p>
       <p><label>答え：<input type="text" name="answer" value="<?= htmlspecialchars($answer) ?>" required></label></p>
@@ -65,7 +57,7 @@ try {
     <?php if (isset($result)) : ?>
       <p><?= $result ?></p>
     <?php endif; ?>
-    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="GET">
+    <form method="GET">
       <button type="submit">次の問題</button>
     </form>
   <?php else : ?>
