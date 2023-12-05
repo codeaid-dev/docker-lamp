@@ -16,3 +16,4 @@ docker-lamp.code-workspace
 !/htdocs/survey/
 !/htdocs/blog/
 !/htdocs/session.php
+!/htdocs/cookie.php
