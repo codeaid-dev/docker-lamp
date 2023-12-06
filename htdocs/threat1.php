@@ -35,7 +35,7 @@
   <?php if (isset($rows)): ?>
     <?php foreach ($rows as $row): ?>
     <p>
-      「<?= $row['name'] ?>」さんこんにちは。
+      「<?= $row['name'] ?>」さん、こんにちは！
     </p>
     <?php endforeach; ?>
     <a href="">戻る</a>

@@ -40,7 +40,7 @@
   <?php if (isset($rows)): ?>
     <?php foreach ($rows as $row): ?>
     <p>
-      「<?= htmlspecialchars($row['name']) ?>」さんこんにちは。
+      「<?= htmlspecialchars($row['name']) ?>」さん、こんにちは！
     </p>
     <?php endforeach; ?>
     <a href="">戻る</a>
