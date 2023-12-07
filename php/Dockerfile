@@ -8,4 +8,4 @@ RUN apt-get update &&\
   #PHP PDO MySQL
   docker-php-ext-install pdo_mysql mysqli
 #mod_rewrite有効化
-RUN a2enmod rewrite
+#RUN a2enmod rewrite
