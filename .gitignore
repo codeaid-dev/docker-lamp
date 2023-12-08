@@ -14,6 +14,7 @@ docker-lamp.code-workspace
 !/htdocs/quiz/
 !/htdocs/todo/
 !/htdocs/survey/
+/htdocs/survey/admin/*.csv
 !/htdocs/blog/
 !/htdocs/session.php
 !/htdocs/cookie.php
