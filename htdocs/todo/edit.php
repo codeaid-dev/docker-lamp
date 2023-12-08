@@ -35,7 +35,7 @@ if(isset($_GET['edit'])){
   <h1>ToDo - <?php echo $_SESSION['username'] ?></h1>
   <form method="post">
     <input type="hidden" name="id" value="<?php echo $id ?? ''; ?>">
-    <textarea name="task" rows="4" cols="30"><?php echo $task['task'] ?? '' ?></textarea><br>
+    <textarea name="task" rows="4" cols="30" required><?php echo $task['task'] ?? '' ?></textarea><br>
     <button type="submit" name="edit">修正</button>
   </form>
   <br>

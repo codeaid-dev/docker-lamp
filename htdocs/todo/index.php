@@ -57,7 +57,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
   <h1>ToDo - <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
   <form method="post">
-    <textarea name="task" rows="4" cols="30" placeholder="タスク追加"></textarea><br>
+    <textarea name="task" rows="4" cols="30" placeholder="タスク追加" required></textarea><br>
     <button type="submit" name="add">追加</button>
   </form>
   <br>
