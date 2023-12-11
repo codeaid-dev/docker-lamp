@@ -1,4 +1,6 @@
 <?php
+require_once 'config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validate_form()がエラーを返したらエラーを表示する
   list($errors, $input) = validate_form();
@@ -6,16 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'index.php';
   } else {
     // サブミットされたデータが有効なら処理する
-    //$dsn = 'mysql:host=localhost;dbname=survey;charset=utf8mb4'; // XAMPP/MAMP/VMの場合
-    $dsn = 'mysql:host=mysql;dbname=survey;charset=utf8mb4'; // Dockerの場合
-    //$dsn = 'sqlite:./survey.db'; // SQLiteの場合
-    $user = 'root';
-    $password = 'password';
     try {
-      $pdo = new PDO($dsn, $user, $password);
-      //$pdo = new PDO($dsn); //SQLiteの場合
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
       $stmt = $pdo->prepare("INSERT INTO answers (name,email,age,program,pc,maker,comments) VALUES (?,?,?,?,?,?,?)");
       $stmt->bindParam(1, $input['name'], PDO::PARAM_STR);
       $stmt->bindParam(2, $input['email'], PDO::PARAM_STR);
@@ -51,17 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 function existUser($email) {
-  //$host = 'localhost'; //XAMPP,MAMP,VM
-  $host = 'mysql'; //Docker
-  $dbname = 'survey';
-  $dbuser = 'root';
-  $dbpass = 'password';
-  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+  global $pdo; //require_once 'config.php'で定義したグローバル変数を使えるようにする
   try {
-    $pdo = new PDO($dsn, $dbuser, $dbpass); //MySQL
-    //$pdo = new PDO('sqlite:./survey.db'); //SQLite
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $stmt = $pdo->prepare("SELECT * FROM answers WHERE email=?");
     $stmt->bindParam(1, $email, PDO::PARAM_STR);
     $stmt->execute();

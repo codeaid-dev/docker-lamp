@@ -9,11 +9,12 @@
     //$db = new PDO($dsn); //SQLite
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 例外を出力する
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 静的プレースホルダーを指定
+    //For SQLite using AUTOINCREMENT, for MySQL using AUTO_INCREMENT
     $db->query("CREATE TABLE IF NOT EXISTS questions (
-      id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
       question VARCHAR(255) NOT NULL,
       answer VARCHAR(255) NOT NULL
-    ) DEFAULT CHARACTER SET=utf8;");
+    )");
   } catch (PDOException $e) {
     die ('エラー：'.$e->getMessage());
   }

@@ -15,7 +15,7 @@
       price INT NOT NULL,
       page INT NOT NULL,
       date VARCHAR(255) NOT NULL
-    );");
+    )");
   } catch (PDOException $e) {
     die ('エラー：'.$e->getMessage());
   }
