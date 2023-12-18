@@ -94,6 +94,6 @@ if (isset($_POST['alldel'])) {
     <button type="submit" name="alldel" style="margin-left:20px;">全て削除</button></p>
   </form>
   <p><a href="logout.php">ログアウト</a>
-  <a href="leave.php" style="margin-left: 20px;">ユーザー登録解除</a></p>
+  <a href="leave.php" style="margin-left: 20px;">管理者登録解除</a></p>
 </body>
 </html>

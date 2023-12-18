@@ -53,7 +53,7 @@ if(isset($_POST['signup'])){
     <?php } ?>
     <h1>管理者登録</h1>
     <form method="post">
-      <label>ユーザー名：<input type="text" name="username" required></label><br>
+      <label>管理者名：<input type="text" name="username" required></label><br>
       <label>パスワード：<input type="password" name="password" required></label><br>
       <button type="submit" name="signup">登録</button>
     </form>

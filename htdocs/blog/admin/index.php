@@ -38,6 +38,6 @@ $posts = $stmt->fetchAll();
     <p>記事がありません。</p>
   <?php endif; ?>
   <p><a href="logout.php">ログアウト</a>
-  <a href="leave.php" style="margin-left: 20px;">ユーザー登録解除</a></p>
+  <a href="leave.php" style="margin-left: 20px;">管理者登録解除</a></p>
 </body>
 </html>
