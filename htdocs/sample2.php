@@ -21,7 +21,8 @@
 
     try {
       //$db = new PDO($dsn, $user, $password, $options); // MySQL
-      $db = new PDO("sqlite:./db/sample.db", options:$options); // SQLite
+      //$db = new PDO("sqlite:./db/sample.db", options:$options); // SQLite
+      $db = new PDO("sqlite:./db/sample.db"); // SQLite
       print '<p>接続成功</p>';
 
       $db->exec("CREATE TABLE IF NOT EXISTS users(
