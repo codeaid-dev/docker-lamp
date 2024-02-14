@@ -18,3 +18,4 @@ docker-lamp.code-workspace
 !/htdocs/blog/
 !/htdocs/session.php
 !/htdocs/cookie.php
+!/htdocs/hash_sample.php
