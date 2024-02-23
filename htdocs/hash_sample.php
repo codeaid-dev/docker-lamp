@@ -5,7 +5,7 @@
   session_set_cookie_params($expire);
   session_start();
 
-  function to_hash($password) {
+  function hash_password($password) {
     $str = '1234567890abcdefghijklmnopqrstuvwxyz';
     $salt = substr(str_shuffle($str), 0,16);
     $hash = hash('sha256',$password.$salt);
@@ -24,10 +24,10 @@
       $json = file_get_contents("hash_sample.json");
       $json = mb_convert_encoding($json, "UTF-8");
       $signupinfo = json_decode($json, true);
-      //$signupinfo[$_POST['username']] = to_hash($_POST['password']);
+      //$signupinfo[$_POST['username']] = hash_password($_POST['password']);
       $signupinfo[$_POST['username']] = password_hash($_POST['password'],PASSWORD_DEFAULT);
     } else {
-      //$signupinfo = array($_POST['username'] => to_hash($_POST['password']));
+      //$signupinfo = array($_POST['username'] => hash_password($_POST['password']));
       $signupinfo = array($_POST['username'] => password_hash($_POST['password'],PASSWORD_DEFAULT));
     }
     $signupinfo = json_encode($signupinfo);
