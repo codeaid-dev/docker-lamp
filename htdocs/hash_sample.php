@@ -32,6 +32,8 @@
     }
     $signupinfo = json_encode($signupinfo);
     file_put_contents("hash_sample.json",$signupinfo);
+    header('Location: hash_sample.php');
+    exit();
   }
 
   if (isset($_POST["logout"])) {
@@ -75,24 +77,24 @@
 </head>
 <body>
   <h1>パスワード保存とログイン</h1>
-  <?php if (isset($username)) { ?>
-    <?php if (isset($error)) { ?>
-      <p><?php echo htmlspecialchars($username); ?> - <?php echo $error; ?></p>
-      <?php $error = "" ?>
-      <a href="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">ログインへ</a>
+  <?php if (isset($_SESSION['username'])) { ?>
+    <p><?php echo  htmlspecialchars($_SESSION['username']); ?> - ログイン中です。</p>
+    <form method="POST">
+      <button type="submit" name="logout">ログアウト</button>
+    </form>
+  <?php }  else { ?>
+    <?php if (isset($username) && isset($error)) { ?>
+        <p><?php echo htmlspecialchars($username); ?> - <?php echo $error; ?></p>
+        <?php $error = "" ?>
+        <a href="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">ログインへ</a>
     <?php } else { ?>
-      <p><?php echo  htmlspecialchars($username); ?> - ログイン中です。</p>
+      <h3>ログイン</h3>
       <form method="POST">
-        <button type="submit" name="logout">ログアウト</button>
+        <label>ユーザー名：<input type="text" name="username" required></label><br>
+        <label>パスワード：<input type="password" name="password" required></label><br>
+        <button type="submit" name="login">ログイン</button>
       </form>
     <?php } ?>
-  <?php }  else { ?>
-    <h3>ログイン</h3>
-    <form method="POST">
-      <label>ユーザー名：<input type="text" name="username" required></label><br>
-      <label>パスワード：<input type="password" name="password" required></label><br>
-      <button type="submit" name="login">ログイン</button>
-    </form>
   <?php } ?>
 <p>----------</p>
 <h3>ユーザー登録</h3>
