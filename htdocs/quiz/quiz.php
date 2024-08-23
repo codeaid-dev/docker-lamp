@@ -46,7 +46,7 @@
 </head>
 <body>
   <h1>クイズ出題</h1>
-  <?php if (!empty($questions) || !empty($question)) : ?>
+  <?php if (!empty($question)) : ?>
     <form method="POST">
       <input type="hidden" name="id" value="<?= $id ?>">
       <p>問題：<?= htmlspecialchars($question) ?></p>
@@ -57,9 +57,7 @@
     <?php if (isset($result)) : ?>
       <p><?= $result ?></p>
     <?php endif; ?>
-    <form method="GET">
-      <button type="submit">次の問題</button>
-    </form>
+    <a href="quiz.php"><button>次の問題</button></a>
   <?php else : ?>
     <p>問題がありません。</p>
   <?php endif; ?>
