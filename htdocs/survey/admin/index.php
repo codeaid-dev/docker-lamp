@@ -55,10 +55,15 @@ if (isset($_POST['alldel'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>アンケート</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
   <h2>回答一覧</h2>
-  <table border="1">
+  <table>
     <tr>
       <th>回答日時</th>
       <th>名前</th>
