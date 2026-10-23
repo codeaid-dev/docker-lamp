@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.5-apache
 COPY ./php.ini /usr/local/etc/php/
 RUN apt-get update &&\
   #PHP GD EXIF
