@@ -19,3 +19,4 @@ docker-lamp.code-workspace
 !/htdocs/session.php
 !/htdocs/cookie.php
 !/htdocs/hash_sample.php
+!/htdocs/QuizApp/
