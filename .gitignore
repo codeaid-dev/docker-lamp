@@ -1,6 +1,7 @@
 /htdocs/*
 .DS_Store
 docker-lamp.code-workspace
+*.db
 !/htdocs/hello.php
 !/htdocs/sample.php
 !/htdocs/sample2.php
